@@ -41,7 +41,7 @@ UI.prototype.addAlert = function(message, alertClass) {
 
   setTimeout(function(){
     alertDiv.style.display = 'none';
-  }, 3000)
+  }, 3000);
 }
 
 UI.prototype.deleteBook = function(target) {
