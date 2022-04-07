@@ -30,6 +30,21 @@ UI.prototype.clearFields = function(){
   document.getElementById('isbn').value = '';
 }
 
+UI.prototype.addAlert = function(message, alertClass) {
+  let alertDiv = document.getElementById('alert-div');
+  alertDiv.style.display = 'block';
+
+  const alert = `
+  <p class=" p-3 alert-${alertClass}">${message}</p>
+  `
+  alertDiv.innerHTML=alert;
+
+  setTimeout(function(){
+    alertDiv.style.display = 'none';
+  }, 3000)
+
+
+}
 
 //EVENT LISTENERS
 //form submission
@@ -39,9 +54,15 @@ document.getElementById('book-form').addEventListener("submit", function (ev) {
   const isbn = document.getElementById('isbn').value;
 
   let book = new Book(title, author, isbn);
-
   let ui = new UI();
-  ui.addBookToList(book);
-  ui.clearFields();
+
+  //validation
+  if(title==='' || author==='' || isbn==='') {    
+    ui.addAlert('Please enter all the book fields', 'danger');
+  } else {
+    ui.addBookToList(book);
+    ui.clearFields();
+  }
+
   ev.preventDefault();
 });
